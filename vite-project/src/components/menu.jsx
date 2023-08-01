@@ -1,31 +1,27 @@
-/*import { React, useState } from "react";
+import { React, useState } from "react";
 import App from "../Apps";
 
 
-function SearchIn() {
-  const [inputText, setInputText] = useState("");
+export default function SearchIn(props) {
+  const title = props
+
+  const [inputText, setInputText] = useState(title);
   let inputHandler = (e) => {
     //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
+    const query = e.target.value
+    var updatedList = [...title]
+    updatedList = updatedList.filter((item) => {
+      return item.toLowerCase().indexOf(query.toLowerCase()) !== -1
+    })
+    setInputText(updatedList)
+  }
 
   return (
     <div className="main">
-      
-      <div className="search">
-      <input 
-                    type="text"
-                    placeholder="search"
-                    className="form--input"
-                    name="searchbar"
-                    value={inputText}
-                    onChange={inputHandler}
-                />
+      <input placeholder="search" id="search-box" className="inputNav" onChange={inputHandler} />
+      <div>
+    
       </div>
-      <App input={inputText} />
-    </div>
-  );
-}
-
-export default SearchIn;*/
+    </div>)
+    }
+      

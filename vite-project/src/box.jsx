@@ -1,37 +1,27 @@
 import {useState} from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import App from './Apps';
 
 export default function Appp() {
-  const [isShown, setIsShown] = useState(false);
+  const navigate = useNavigate();
 
-  const handleClick = (event) => {
-    // 👇️ toggle shown state
-    setIsShown(current => !current);
 
-    // 👇️ or simply set it to true
-    // setIsShown(true);
+  const navigateHome = () => {
+    // 👇️ navigate to /
+    navigate('/');
   };
 
   return (
     <div>
-      <button onClick={handleClick}>Click</button>
+      <div>
+        <button onClick={navigateHome}>Home</button>
 
-      {/* 👇️ show elements on click */}
-      {isShown && (
-        <div>
-          <h2>Some content here</h2>
-        </div>
-      )}
 
-      {/* 👇️ show component on click */}
-      {isShown && <Box />}
-    </div>
-  );
-}
-
-function Box() {
-  return (
-    <div>
-      <h2>Box</h2>
+        <Routes>
+          
+          <Route path="/" element={<App />} />
+        </Routes>
+      </div>
     </div>
   );
 }

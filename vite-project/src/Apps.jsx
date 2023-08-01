@@ -4,15 +4,16 @@ import Preview from './components/Previiew'
 import Navbar from './components/NavBar'
 import Seasons from './components/seasons'
 import Appp from './box'
+import SearchIn from './components/NavBar'
 
 
 function App() {
 
   const [user, setUser] = React.useState([])
-  const [isShow, setIsShow] = React.useState(false)
+  const [isShow, setIsShow] = React.useState()
 
   const [isLoading, setIsLoading] = React.useState(false)
-
+  const [isShown, setIsShown] = React.useState(false);
 
   const fetchData = () => {
 
@@ -40,71 +41,71 @@ function App() {
   React.useEffect(() => {
 
     fetchData()
+    isShow
+    isShown
 
-  }, []) 
+  }, [0]) 
 
 
-  function current(e) {
-   console.log(e.target)
- }
   
    
-
-  const preMap = user.map(i => {
-    return (<Preview onClick={current}
-      key={i.id}
-      item={i}
-    ></Preview>)
-  })
-  const preSeason = user.map(i => {
-    return (<Seasons
-      key={i.id}
-      item={i}
-    ></Seasons>)
-  })
-    
-
-  const [isShown, setIsShown] = React.useState(false);
-
   const seasons = (event) => {
     // 👇️ toggle shown state
-    
+    const evEnt = event.currentTarget.accessKey
+    console.log(evEnt)
     setIsShown(current => !current);
     //const keys= event.target.key
-
-    // 👇️ or simply set it to true
-    // setIsShown(true);
-    };
+    setIsShow (evEnt )
+  // 👇️ or simply set it to true
+  // setIsShown(true);
+ };
   
+   
+  const div = user.map(i => {
+    return (<div className='mainD' onClick={seasons} 
+    accessKey={i.id}
+      
+    ><Preview className="preview"
+    key={i.id}
+    item={i}
+    
+  ></Preview></div>)
+  })
+const hemo = <div className="bigpre">
+{!isShown&&<div>
+    {user.map((i) => {
+      return (<Navbar
+        item={i}
+      ></Navbar
+      >)
+    })}
+     
+  </div>} 
+  
+  {!isShown &&  div}
+  {isShown && [isShow] }
+  </div >
  
-   /* const filteredData = preData.filter((el) => {
-      //if no input the return the original
-      /*if (props.input === '') {
-          return el;
-      }
-      //return the item which contains the user input
-      else {
-          return el.text.toLowerCase().includes(props.input)
-      }
-    })
-  const research =  <ul>
-  {filteredData.map((item) => (
-      <li key={item.id}>{item.text}</li>
-  ))}
-</ul>*/
   
   return (
     <>
-    {isLoading && <p>Loading...</p>}
-      <Appp/>
+      {isLoading && <h2>Loading...</h2>}
+      
       <div className="bigpre">
       {!isShown&&<div>
-         <Navbar />
-      </div>}
-        {!isShown && <div className="mainD" onClick={seasons} >
-          {preMap}
-        </div>}
-          {isShown && [preSeason] }
+          {user.map((i) => {
+            return (<Navbar
+              item={i}
+            ></Navbar
+            >)
+          })} 
+        </div>}</div>
+      {!isShown && <div className='back'><img src="../images/podcast.jpg" alt="Oop sorry no picture!" className="navImage" />
+        <h2 className='h2'>Student Podcast</h2></div>}
+      <div className='main'>
+      
+        {!isShown &&  div}
+        {isShown && <Seasons item = {isShow} /> }
         </div>
     </>
   )

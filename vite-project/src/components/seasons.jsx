@@ -1,51 +1,62 @@
 import React from "react"
-export default function Seasons( props ) {
+import dayjs from "dayjs"
+import App from "../Apps"
+import Appp from "../box"
+export default function Seasons(props) {
+  
   
   const [users, setUsers] = React.useState({})
   
-  const id = props.item.id
-  console.log(id)
-  
-  
-  React.useEffect(
-    () => {
-        const fetchStockData = async () => {
-            const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
-            const stockData = await response.json();
-            setUsers(stockData)
-            console.log(stockData);
-        };
-        fetchStockData();
-    },[]
-);
+  const [active, setActive] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isComp, setIsComp] = React.useState()
+  const id = props.item
 
+  let stockData = React.useCallback(async () => {
+    let response = await fetch(`https://podcast-api.netlify.app/id/${id}`)
+    response  = await response.json() 
+    setUsers(response)
+  }, [id]) // every time id changed, new book will be loaded
+
+  React.useEffect(() => {
+    stockData()
+    setInterval(setIsComp(isComp => !isComp),300)
+
+  }, [0])
  
- /* let i = users
-   let using = i.map(item => {
-      return(<Ser item = {users.item}/>) }
-   )*/
-   
+
+
+  
+ 
+  const handleClick = () => {
+    setActive(!active)
+  }
+ 
+  
+  /**/
+ 
+  
+  //console.log(users.seasons[0].season)
   
   return (
-     <div>
-      <Ser  item={users}/>
+   <div>
+      {isLoading && <p>Loading...</p> }
+      
+      <div>
+        <img src={users.image} width="50%" />
+        <h2>{users.title}</h2>
+        <img src="../USB/play.png" width="30px" />
+        <img src="../USB/love.png" width="30px" onClick={handleClick} style={{ background: active ? "lightpink" : "" }} />
+        <p>{users.description}</p>
+        {!isLoading && <h2>Season: {1}</h2>}
+        <h5>All Episode: {10}</h5>
+    
+        
+      </div>
+      
     </div>
   )
+}
     
-  }
-  function Ser(props) {
-    return (
-      <div>
-        <img src={props.item.image} width="100%" />
-        <h2>{props.item.title}</h2> 
-        <p>{props.item.description}</p> 
-        <h5>{props.item.updated}</h5>
-        <h5>{props.item.seasons[0]}</h5>
-        <h5>{props.item.title}</h5>
-        <h5>{props.item.genres}</h5>
-
-
-      </div>
-    );
-  }
+  
   
