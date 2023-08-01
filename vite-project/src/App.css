@@ -44,8 +44,12 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   text-align: center;
+  width: 100%;
   height: 50px;
   gap: 15px;
+  flex-shrink: 10px;
+  
+  
 
 }
 
@@ -55,8 +59,10 @@ body {
   width: 200px;
   border: 2px solid;
   border-radius: 5px; 
-  height: 400px; 
+  height: 400px;
   
+   
+
 }
 .previewD:hover{
   cursor: pointer;
@@ -72,7 +78,9 @@ body {
 }
 .bigpre{
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  
+  
   
 }
 .navD{
@@ -125,6 +133,15 @@ background-color:  rgb(226, 226, 233);
   display: flex;
   margin: 30px;
 }
+.episode{
+  background-color: rgb(97, 82, 111);
+}
+.episode2{
+  background-color: rgb(97, 82, 111);
+}
+.episode1{
+  background-color:rgb(97, 82, 111)
+}
 
 @keyframes logo-spin {
   from {
@@ -135,9 +152,9 @@ background-color:  rgb(226, 226, 233);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media screen and (max-width : 450px) {
+  .previewD{
+    width:100%
   }
 }
 

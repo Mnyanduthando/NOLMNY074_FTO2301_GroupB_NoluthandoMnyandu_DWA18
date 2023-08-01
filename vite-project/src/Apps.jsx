@@ -100,11 +100,11 @@ const hemo = <div className="bigpre">
             >)
           })} 
         </div>}</div>
-      {!isShown && <div className='back'><img src="../images/podcast.jpg" alt="Oop sorry no picture!" className="navImage" />
+      {!isLoading && !isShown && <div className='back'><img src="../images/podcast.jpg" alt="Oop sorry no picture!" className="navImage" />
         <h2 className='h2'>Student Podcast</h2></div>}
       <div className='main'>
       
-        {!isShown &&  div}
+        {!isLoading && !isShown &&  div}
         {isShown && <Seasons item = {isShow} /> }
         </div>
     </>
