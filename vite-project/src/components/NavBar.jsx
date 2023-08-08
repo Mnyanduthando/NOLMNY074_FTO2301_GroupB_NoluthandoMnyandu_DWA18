@@ -2,6 +2,7 @@ import React from "react";
 import Fav from "./home";
 import Search from "./search";
 import SearchIn from "./menu";
+import Preview from "./Previiew";
 
 
 
@@ -16,6 +17,8 @@ export default function Navbar(prop) {
       // 👇️ or simply set it to true
       // setIsShown(true);
   };
+  console.log(prop)
+  const item = prop.item
   const handlSearch = (event) => {
     // 👇️ toggle shown state
     setIsSho(current => !current);
@@ -30,12 +33,12 @@ export default function Navbar(prop) {
      
     <button  onClick={handleHome} className="Bhome"><img src="../USB/home.png" width="30px" />HOME</button>
 
-     
+    
 
       {/* 👇️ show component on click */}
-      {isShown && <Fav />}
+      {isShown && <Fav item={item} />}
     
-          {isSho && <SearchIn {...props} />  }
+          {isSho && <SearchIn  />  }
                     <button className="Bsearch" onClick={handlSearch}><img src="../USB/menu(1).png" width="20px" /></button>
                    
                
@@ -65,6 +68,8 @@ function SearchButton(props) {
 
 
   const [sortState, setSortState] = React.useState("none");
+ 
+
 
   const sortMethods = {
     none: { method: (a, b) => null },
@@ -74,7 +79,9 @@ function SearchButton(props) {
  let tit =props.item
   return (
     <div>
-      <div><button><h2>Recents View</h2></button></div>
+      <div><button onClick={inte}><h2>Recents View</h2></button></div>
+      
+      <div><button><h2>Interested In...</h2></button></div>
       <div><button onClick={atoZ}><h2>Arrange A-Z</h2></button></div>
       <div><button onClick={ztoA}><h2>Arrange Z-A</h2></button></div>
       <div className="main">

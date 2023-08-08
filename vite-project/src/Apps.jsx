@@ -3,15 +3,15 @@ import './App.css'
 import Preview from './components/Previiew'
 import Navbar from './components/NavBar'
 import Seasons from './components/seasons'
-import Appp from './box'
-import SearchIn from './components/NavBar'
+import Fav from './components/home' 
+
 
 
 function App() {
 
   const [user, setUser] = React.useState([])
-  const [isShow, setIsShow] = React.useState()
-
+  const [isShow, setIsShow] = React.useState("")
+  const [isFavo, setFavor] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const [isShown, setIsShown] = React.useState(false);
 
@@ -59,8 +59,8 @@ function App() {
   // 👇️ or simply set it to true
   // setIsShown(true);
  };
+
   
-   
   const div = user.map(i => {
     return (<div className='mainD' onClick={seasons} 
     accessKey={i.id}
@@ -71,20 +71,24 @@ function App() {
     
   ></Preview></div>)
   })
-const hemo = <div className="bigpre">
-{!isShown&&<div>
-    {user.map((i) => {
-      return (<Navbar
-        item={i}
-      ></Navbar
-      >)
-    })}
-     
-  </div>} 
+
+  user.map(i => {
+    return (<div className='mainD' onClick={seasons} 
+    accessKey={i.id}
+      
+    ><Fav className="preview"
+    key={i.id}
+    item={i}
+    
+  ></Fav></div>)
+  })
+  
+ 
   
   {!isShown &&  div}
   {isShown && [isShow] }
-  </div >
+
+  
  
   
   return (
@@ -101,11 +105,15 @@ const hemo = <div className="bigpre">
           })} 
         </div>}</div>
       {!isLoading && !isShown && <div className='back'><img src="../images/podcast.jpg" alt="Oop sorry no picture!" className="navImage" />
-        <h2 className='h2'>Student Podcast</h2></div>}
+        <h2 className='h2'>Student Podcast</h2>   </div> 
+     }
       <div className='main'>
       
         {!isLoading && !isShown &&  div}
-        {isShown && <Seasons item = {isShow} /> }
+        {isShown && <Seasons item={isShow} />}
+        {isFavo && <Favorite/>}
+        
+        
         </div>
     </>
   )
